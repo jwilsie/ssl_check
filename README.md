@@ -10,8 +10,8 @@ Utility to monitor ssl certificates and email warning if nearly expiring
 2. You can also change the days to warn at the top of the file.
 3. Customize your servers.txt file to the list of addresses you'd like to monitor.
 
-## Output
+### Output
 - Output is generated in the certificate_expirations.csv doc in a CSV format.  This is refreshed on each run.
 
-## Logs
+### Logs
 - The logs folder will contain a file for each day of the week, which will overwrite after 7 days.
