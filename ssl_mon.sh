@@ -1,13 +1,19 @@
 #!/bin/bash
 
+# Edit these parameters
+from=<your email address>
+to=<destination email address>
+port=443
+daysToWarn=11
+
+#These should not be modified.
 outfile=certificate_expirations.csv
 current_date=`date +%Y-%m-%d_%H:%M:%S`
 dayOfWeek=`date +"%u"`
 logfile=logs/ssl_mon.${dayOfWeek}.log
 current_directory=`pwd`
-port=443
-from=<your email address>
-to=<destination email address>
+
+
 
 #populate file in same directory called servers.txt with domains to check.
 servers=`cat servers.txt`
@@ -63,7 +69,7 @@ getSslInfo() {
     let DIFF=($formattedExpDate-$formattedCurrDate)/86400
     
     #send email alert if expiration less than 11 days
-    if [ $DIFF -lt 11 ]; then
+    if [ $DIFF -lt $daysToWarn ]; then
         echo -e "From: ${from}\nto: ${to}\nSubject: SSL Certificate for "$domain" expiring in "$DIFF" days" |\
         /usr/sbin/ssmtp ${to}
     fi
