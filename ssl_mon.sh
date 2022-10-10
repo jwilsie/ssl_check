@@ -6,6 +6,8 @@ dayOfWeek=`date +"%u"`
 logfile=logs/ssl_mon.${dayOfWeek}.log
 current_directory=`pwd`
 port=443
+from=<your email address>
+to=<destination email address>
 
 #populate file in same directory called servers.txt with domains to check.
 servers=`cat servers.txt`
@@ -62,8 +64,8 @@ getSslInfo() {
     
     #send email alert if expiration less than 11 days
     if [ $DIFF -lt 11 ]; then
-        echo -e "From: it@sendaride.com\nto: it@sendaride.com\nSubject: SSL Certificate for "$domain" expiring in "$DIFF" days" |\
-        /usr/sbin/ssmtp it@sendaride.com 2>> $logfile
+        echo -e "From: ${from}\nto: ${to}}\nSubject: SSL Certificate for "$domain" expiring in "$DIFF" days" |\
+        /usr/sbin/ssmtp ${to}
     fi
 
     }
