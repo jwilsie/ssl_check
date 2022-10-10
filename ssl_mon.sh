@@ -64,7 +64,7 @@ getSslInfo() {
     
     #send email alert if expiration less than 11 days
     if [ $DIFF -lt 11 ]; then
-        echo -e "From: ${from}\nto: ${to}}\nSubject: SSL Certificate for "$domain" expiring in "$DIFF" days" |\
+        echo -e "From: ${from}\nto: ${to}\nSubject: SSL Certificate for "$domain" expiring in "$DIFF" days" |\
         /usr/sbin/ssmtp ${to}
     fi
 
