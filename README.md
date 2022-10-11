@@ -16,3 +16,7 @@ Utility to monitor ssl certificates and email warning if nearly expiring
 
 ### Logs
 - The logs folder will contain a file for each day of the week, which will overwrite after 7 days.
+
+### To-Do
+1. Fix working directory for cron usage.
+2. Cleanup
