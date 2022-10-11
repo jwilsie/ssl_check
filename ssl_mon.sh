@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Edit these parameters
-from=it@sendaride.com
-to=it@sendaride.com
+from=email@example.com
+to=email@example.com
 port=443
 daysToWarn=11
 
