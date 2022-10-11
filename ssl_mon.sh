@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Edit these parameters
-from=<your email address>
-to=<destination email address>
+from=it@sendaride.com
+to=it@sendaride.com
 port=443
 daysToWarn=11
 
@@ -54,8 +54,12 @@ getSslInfo() {
     
     #use ssl to get cert expiration date
     echo "--------------------------------------------" >> $logfile
-    rawoutput=`echo | ${ssl_exe} s_client -servername ${domain} -connect ${domain}:${port} 2>>$logfile | ${ssl_exe} x509 -noout -dates | grep notAfter`
-    
+    if [ $serverType == "psql" ]; then
+      rawoutput=`echo | ${ssl_exe} s_client -starttls postgres -servername ${domain} -connect ${domain}:${port} 2>>$logfile | ${ssl_exe} x509 -noout -dates | grep notAfter`
+    else
+      rawoutput=`echo | ${ssl_exe} s_client -servername ${domain} -connect ${domain}:${port} 2>>$logfile | ${ssl_exe} x509 -noout -dates | grep notAfter`
+    fi
+
     #get expdates and format output, write to logs
     formattedOutput=`echo $current_date,$rawoutput | sed "s/notAfter=/$domain\,/g"`
     echo $formattedOutput | tee -a $logfile $outfile
@@ -78,7 +82,14 @@ getSslInfo() {
 
 for server in $servers
 do
-    getSslInfo $server $port
+  serverType=`echo $server | cut -d ',' -f 2`
+  server=`echo $server | cut -d ',' -f 1`
+  if [ $serverType == "psql"  ]; then
+    port=5432
+  else
+    port=443
+  fi
+  getSslInfo $server $port
 done
 
 exit 0
