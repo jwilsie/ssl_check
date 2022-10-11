@@ -8,7 +8,7 @@ Utility to monitor ssl certificates and email warning if nearly expiring
 ### Instructions
 1. Configure the ssl_mon.sh file with your email address and the destination email address information.
 2. You can also change the days to warn at the top of the file.
-3. Customize your servers.txt file to the list of addresses you'd like to monitor.
+3. Customize your servers.txt file to the list of addresses you'd like to monitor. The value after the comma determines if it's a web server (HTTPS) or a Postgres Server (psql).
 4. Run the script manually or add to cron to schedule daily cert checks.
 
 ### Output
